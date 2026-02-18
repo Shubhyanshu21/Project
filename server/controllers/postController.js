@@ -51,3 +51,23 @@ exports.toggleLike = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.addComment = async (req, res) => {
+  try {
+    const { text } = req.body;
+
+    const post = await Post.findById(req.params.id);
+
+    const comment = {
+      user: req.user.id,
+      text,
+    };
+
+    post.comments.push(comment);
+    await post.save();
+
+    res.json(post);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

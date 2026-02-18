@@ -1,5 +1,16 @@
 const mongoose = require("mongoose");
 
+const commentSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    text: String,
+  },
+  { timestamps: true }
+);
+
 const postSchema = new mongoose.Schema(
   {
     user: {
@@ -21,6 +32,7 @@ const postSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    comments: [commentSchema],
   },
   { timestamps: true }
 );
