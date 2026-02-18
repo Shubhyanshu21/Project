@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -26,6 +28,8 @@ export default function Home() {
   }, []);
 
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen bg-gray-900 text-white p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">
         Home Feed
@@ -62,5 +66,6 @@ export default function Home() {
         ))}
       </div>
     </div>
+    </>
   );
 }
