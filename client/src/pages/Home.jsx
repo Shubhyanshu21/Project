@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -28,6 +30,12 @@ export default function Home() {
       <h1 className="text-3xl font-bold mb-6 text-center">
         Home Feed
       </h1>
+      <button
+    onClick={() => navigate("/create")}
+    className="bg-blue-500 px-4 py-2 rounded mb-4">
+        Create Post
+</button>
+
 
       <div className="max-w-xl mx-auto space-y-6">
         {posts.map((post) => (
