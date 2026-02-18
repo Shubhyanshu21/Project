@@ -50,6 +50,24 @@ export default function Home() {
             <h2 className="font-semibold">
               {post.user.username}
             </h2>
+            <button
+            className="text-blue-400 text-sm"
+            onClick={async () => {
+             const token = localStorage.getItem("token");
+             await axios.put(
+           `http://localhost:8000/api/users/follow/${post.user._id}`,
+           {},
+           {
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           }
+         );
+         alert("Follow status changed");
+         }     }
+        >
+         Follow
+        </button>
 
             <img
               src={post.image}

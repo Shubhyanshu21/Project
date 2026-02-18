@@ -60,6 +60,10 @@ export default function Profile() {
         <h1 className="text-3xl font-bold">
           {user.username}
         </h1>
+        <p className="text-gray-400">
+        {user.followers.length} followers
+        </p>
+
         <p className="text-gray-400">{user.email}</p>
 
         <button
