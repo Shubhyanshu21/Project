@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -11,12 +14,17 @@ export default function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    await axios.post(
-      "http://localhost:8000/api/auth/signup",
-      form
-    );
+    try {
+      await axios.post(
+        "http://localhost:8000/api/auth/signup",
+        form
+      );
 
-    alert("Signup successful");
+      alert("Signup successful");
+      navigate("/"); // login page par wapas
+    } catch (error) {
+      alert(error.response?.data?.message || "Signup failed");
+    }
   };
 
   return (

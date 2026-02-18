@@ -1,0 +1,58 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+export default function Home() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.get(
+        "http://localhost:8000/api/posts",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setPosts(res.data);
+    };
+
+    fetchPosts();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-900 text-white p-4">
+      <h1 className="text-3xl font-bold mb-6 text-center">
+        Home Feed
+      </h1>
+
+      <div className="max-w-xl mx-auto space-y-6">
+        {posts.map((post) => (
+          <div
+            key={post._id}
+            className="bg-gray-800 rounded-lg p-4"
+          >
+            <h2 className="font-semibold">
+              {post.user.username}
+            </h2>
+
+            <img
+              src={post.image}
+              alt="post"
+              className="w-full mt-2 rounded"
+            />
+
+            <p className="mt-2">{post.caption}</p>
+
+            <p className="text-sm text-gray-400 mt-1">
+              {post.likes.length} likes
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
